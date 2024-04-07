@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -48,5 +49,10 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidate = candidateRepository.findById(id).orElseThrow(CandidateNotFoundException::new);
         candidateRepository.delete(candidate);
         return "Candidate deleted successfully";
+    }
+
+    @Override
+    public List<Candidate> getCandidates() {
+        return (List<Candidate>) candidateRepository.findAll();
     }
 }

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/candidates")
@@ -19,7 +21,7 @@ public class CandidateController {
         return new ApiResponse<>(candidateService.addCandidate(addCandidateRequestDTO));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/changeStatus/{id}")
     public ApiResponse<Candidate> changeStatus(@PathVariable Long id, @Valid @RequestBody ChangeCandidateStatusRequestDTO requestDTO) {
         return new ApiResponse<>(candidateService.changeCandidateStatus(id, requestDTO));
     }
@@ -32,5 +34,10 @@ public class CandidateController {
     @DeleteMapping("/delete/{id}")
     public ApiResponse<String> editCandidate(@PathVariable Long id) {
         return new ApiResponse<>(candidateService.deleteCandidate(id));
+    }
+
+    @GetMapping("")
+    public ApiResponse<List<Candidate>> getCandidates() {
+        return new ApiResponse<>(candidateService.getCandidates());
     }
 }
