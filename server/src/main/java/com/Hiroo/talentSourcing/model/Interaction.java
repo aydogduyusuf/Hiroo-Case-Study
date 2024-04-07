@@ -1,9 +1,12 @@
 package com.Hiroo.talentSourcing.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -20,6 +23,8 @@ public class Interaction {
 
     @ManyToOne
     @JoinColumn(name = "candidate_id", nullable = false)
+    @JsonIgnoreProperties("interactions")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Candidate candidate;
 
     @Column(name = "interaction_type", nullable = false)

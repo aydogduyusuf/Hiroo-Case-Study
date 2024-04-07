@@ -1,8 +1,12 @@
 package com.Hiroo.talentSourcing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -24,7 +28,8 @@ public class Candidate {
     @Column(name = "contact_information", nullable = false)
     private String contactInformation;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "candidate", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("candidate")
     private List<Interaction> interactions;
 
     @Column(name = "candidate_status", nullable = false)

@@ -9,6 +9,7 @@ import com.Hiroo.talentSourcing.repository.CandidateRepository;
 import com.Hiroo.talentSourcing.service.CandidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CandidateServiceImpl implements CandidateService {
     private final CandidateRepository candidateRepository;
     @Override
+    @Transactional
     public Candidate addCandidate(AddCandidateRequestDTO addCandidateRequestDTO) {
         Candidate candidate = new Candidate();
         candidate.setNameSurname(addCandidateRequestDTO.getNameSurname());
@@ -28,6 +30,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
+    @Transactional
     public Candidate changeCandidateStatus(Long id, ChangeCandidateStatusRequestDTO requestDTO) {
         Candidate candidate = candidateRepository.findById(id).orElseThrow(CandidateNotFoundException::new);
         candidate.setCandidateStatus(requestDTO.getCandidateStatus());
@@ -36,6 +39,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
+    @Transactional
     public Candidate updateCandidate(Long id, AddCandidateRequestDTO requestDTO) {
         Candidate candidate = candidateRepository.findById(id).orElseThrow(CandidateNotFoundException::new);
         candidate.setUpdateDate(LocalDateTime.now());
@@ -45,6 +49,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
+    @Transactional
     public String deleteCandidate(Long id) {
         Candidate candidate = candidateRepository.findById(id).orElseThrow(CandidateNotFoundException::new);
         candidateRepository.delete(candidate);
@@ -52,6 +57,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
+    @Transactional
     public List<Candidate> getCandidates() {
         return (List<Candidate>) candidateRepository.findAll();
     }
