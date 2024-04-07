@@ -3,8 +3,10 @@ package com.Hiroo.talentSourcing.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,4 +30,12 @@ public class Candidate {
     @Column(name = "candidate_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private CandidateStatus candidateStatus;
+
+    @CreatedDate
+    @Column(name="created_at")
+    private LocalDateTime createDate;
+
+    @LastModifiedDate
+    @Column(name="updated_at")
+    private LocalDateTime updateDate;
 }
